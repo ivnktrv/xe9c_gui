@@ -6,8 +6,8 @@ namespace xe9c_gui;
 
 public partial class Form1 : Form
 {
-    Xe9c_client client;
-    Socket server;
+    Xe9c_client? client;
+    Socket? server;
 
     public Form1()
     {
