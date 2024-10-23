@@ -48,8 +48,9 @@ public class Xe9c_client
     public Socket ConnectToGateway()
     {
         IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(_ip), _port);
+        IPAddress ipAddr = IPAddress.Parse(_ip);
         Socket __socket = new Socket(
-            AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         __socket.Connect(ipEndPoint);
 
         return __socket;

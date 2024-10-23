@@ -46,6 +46,7 @@ partial class Form1
         // 
         outTextBox.Location = new Point(12, 12);
         outTextBox.Name = "outTextBox";
+        outTextBox.ReadOnly = true;
         outTextBox.Size = new Size(488, 376);
         outTextBox.TabIndex = 1;
         outTextBox.Text = "";
@@ -59,16 +60,19 @@ partial class Form1
         buttonSend.TabIndex = 2;
         buttonSend.Text = "SEND";
         buttonSend.UseVisualStyleBackColor = true;
-        buttonSend.Click += buttonSend_Click; 
+        buttonSend.Click += buttonSend_Click;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(513, 450);
+        ClientSize = new Size(509, 446);
         Controls.Add(buttonSend);
         Controls.Add(outTextBox);
         Controls.Add(inputBox);
+        FormBorderStyle = FormBorderStyle.FixedSingle;
         Name = "Form1";
+        ShowIcon = false;
         Text = "xe9c";
         Load += Form1_Load;
         ResumeLayout(false);
