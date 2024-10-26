@@ -74,10 +74,3 @@ public class Xe9c_client
         __socket.Send(getMsg);
     }
 }
-/*
-...
-line 98
-line 99
-line 100 to erase
- 
-*/
