@@ -76,7 +76,7 @@ public partial class FormMain : Form
             _server = _client.ConnectToGateway();
             byte[] sendName = Encoding.UTF8.GetBytes(_client.ClientName);
             _server.Send(sendName);
-            byte[] recvGatewayName = new byte[16];
+            byte[] recvGatewayName = new byte[32];
             _server.Receive(recvGatewayName);
             string getGatewayName = Encoding.UTF8.GetString(recvGatewayName);
             richTextBoxGatewayInfo.Text = "Имя шлюза: " + getGatewayName;

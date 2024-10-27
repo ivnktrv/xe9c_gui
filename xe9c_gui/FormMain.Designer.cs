@@ -151,8 +151,8 @@ partial class FormMain
         Controls.Add(outTextBox);
         Controls.Add(inputBox);
         FormBorderStyle = FormBorderStyle.FixedSingle;
+        Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "FormMain";
-        ShowIcon = false;
         Text = "xe9c";
         FormClosing += FormMain_FormClosing;
         Load += FormMain_Load;
