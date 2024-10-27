@@ -100,7 +100,7 @@ partial class FormMain
         buttonHide.Name = "buttonHide";
         buttonHide.Size = new Size(181, 44);
         buttonHide.TabIndex = 4;
-        buttonHide.Text = "СВЕРНУТЬ";
+        buttonHide.Text = "СВЕРНУТЬ В ТРЕЙ";
         buttonHide.UseVisualStyleBackColor = true;
         buttonHide.Click += buttonHide_Click;
         // 
