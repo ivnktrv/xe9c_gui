@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
@@ -47,17 +48,40 @@ public partial class FormMain : Form
         inputBox.Focus();
     }
 
+    private void FormMain_Resize(object sender, EventArgs e)
+    {
+        if (WindowState == FormWindowState.Minimized || this.Visible is false)
+            _client.WindowMinimized = true;
+        else _client.WindowMinimized = false;
+    }
+
+    private void FormMain_Show(object sender, EventArgs e)
+    {
+        Show();
+        WindowState = FormWindowState.Normal;
+    }
+
+    private void FormMain_Hide(object sender, EventArgs e)
+    {
+        Hide();
+    }
+
     private void FormMain_Load(object sender, EventArgs e)
     {
         Text = $"xe9c ({_client.ClientName})";
         inputBox.Text = "Âàøå ñîîáùåíèå...";
+        notifyIconNewMsg.Text = $"xe9c ({_client.ClientName})";
         try
         {
             _server = _client.ConnectToGateway();
             byte[] sendName = Encoding.UTF8.GetBytes(_client.ClientName);
             _server.Send(sendName);
-            outTextBox.Text = $"##### ÏÎÄÊËÞ×ÅÍÎ Ê {_client.IP}:{_client.Port} #####\nÂàøå èìÿ: {_client.ClientName}\n- - - - - - - - - - - -";
-            Task.Run(() => _client.ReceiveMsg(_server, outTextBox));
+            byte[] recvGatewayName = new byte[16];
+            _server.Receive(recvGatewayName);
+            string getGatewayName = Encoding.UTF8.GetString(recvGatewayName);
+            richTextBoxGatewayInfo.Text = "Èìÿ øëþçà: " + getGatewayName;
+            richTextBoxGatewayInfo.Text += $"\nIP: {_client.IP}\nÏîðò: {_client.Port}";
+            Task.Run(() => _client.ReceiveMsg(_server, outTextBox, notifyIconNewMsg));
         }
         catch (Exception ex)
         {
@@ -75,5 +99,21 @@ public partial class FormMain : Form
     {
         _server.Close();
         Close();
+    }
+
+    private void buttonHide_Click(object sender, EventArgs e)
+    {
+        Hide();
+    }
+
+    private void labelGithub_Click(object sender, EventArgs e)
+    {
+        ProcessStartInfo start = new("https://github.com/ivnktrv/xe9c_gui") { UseShellExecute = true };
+        Process.Start(start);
+    }
+
+    private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        _server.Close();
     }
 }

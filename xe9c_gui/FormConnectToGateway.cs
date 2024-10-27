@@ -8,7 +8,6 @@ using System.Text;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.DataFormats;
 
 namespace xe9c_gui;
 
@@ -68,24 +67,6 @@ public partial class FormConnectToGateway : Form
             }
             else
             {
-                /*
-                client = new(
-                        textBoxInputClientName.Text,
-                        textBoxInputIP.Text,
-                        int.Parse(textBoxInputPort.Text)
-                    );
-                if (textBoxInputIP.Text == client.IP &&
-                    int.Parse(textBoxInputPort.Text) == client.Port)
-                {
-                    MessageBox.Show(
-                        "You can't create the same connection a second time",
-                        "ERROR",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-                else
-                {*/
                 client = new(
                     textBoxInputClientName.Text,
                     textBoxInputIP.Text,

@@ -14,6 +14,7 @@ public class Xe9c_client
     private string _clientName = "None";
     private string _ip = "0.0.0.0";
     private int _port = 0;
+    private bool _windowMinimized = false;
 
     public string ClientName
     {
@@ -29,6 +30,11 @@ public class Xe9c_client
     {
         get => _port;
         private set { if (value != null) _port = value; }
+    }
+    public bool WindowMinimized
+    {
+        get => _windowMinimized;
+        set { _windowMinimized = value; }
     }
 
     public Xe9c_client() { }
@@ -56,7 +62,7 @@ public class Xe9c_client
         return __socket;
     }
 
-    public void ReceiveMsg(Socket __socket, RichTextBox box)
+    public void ReceiveMsg(Socket __socket, RichTextBox box, NotifyIcon notifyIcon)
     {
         while (true)
         {
@@ -65,6 +71,11 @@ public class Xe9c_client
             box.Text += $"\n{Encoding.UTF8.GetString(getMsg)}";
             box.SelectionStart = box.Text.Length;
             box.ScrollToCaret();
+            if (_windowMinimized)
+            {
+                notifyIcon.BalloonTipText = Encoding.UTF8.GetString(getMsg);
+                notifyIcon.ShowBalloonTip(5);
+            }
         }
     }
 
