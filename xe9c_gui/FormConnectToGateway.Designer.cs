@@ -39,7 +39,7 @@
             // 
             // buttonConnect
             // 
-            buttonConnect.Location = new Point(159, 12);
+            buttonConnect.Location = new Point(190, 12);
             buttonConnect.Name = "buttonConnect";
             buttonConnect.Size = new Size(132, 84);
             buttonConnect.TabIndex = 0;
@@ -49,7 +49,7 @@
             // 
             // textBoxInputClientName
             // 
-            textBoxInputClientName.Location = new Point(53, 12);
+            textBoxInputClientName.Location = new Point(84, 12);
             textBoxInputClientName.Name = "textBoxInputClientName";
             textBoxInputClientName.Size = new Size(100, 23);
             textBoxInputClientName.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             // textBoxInputIP
             // 
-            textBoxInputIP.Location = new Point(53, 42);
+            textBoxInputIP.Location = new Point(84, 42);
             textBoxInputIP.Name = "textBoxInputIP";
             textBoxInputIP.Size = new Size(100, 23);
             textBoxInputIP.TabIndex = 2;
@@ -68,23 +68,23 @@
             labelClientName.AutoSize = true;
             labelClientName.Location = new Point(16, 15);
             labelClientName.Name = "labelClientName";
-            labelClientName.Size = new Size(31, 15);
+            labelClientName.Size = new Size(62, 15);
             labelClientName.TabIndex = 3;
-            labelClientName.Text = "Имя";
+            labelClientName.Text = "Ваше имя";
             // 
             // labelIP
             // 
             labelIP.AutoSize = true;
-            labelIP.Location = new Point(30, 45);
+            labelIP.Location = new Point(19, 45);
             labelIP.Name = "labelIP";
-            labelIP.Size = new Size(17, 15);
+            labelIP.Size = new Size(59, 15);
             labelIP.TabIndex = 4;
-            labelIP.Text = "IP";
+            labelIP.Text = "IP шлюза";
             // 
             // labelPort
             // 
             labelPort.AutoSize = true;
-            labelPort.Location = new Point(16, 76);
+            labelPort.Location = new Point(43, 76);
             labelPort.Name = "labelPort";
             labelPort.Size = new Size(35, 15);
             labelPort.TabIndex = 5;
@@ -92,7 +92,7 @@
             // 
             // textBoxInputPort
             // 
-            textBoxInputPort.Location = new Point(53, 73);
+            textBoxInputPort.Location = new Point(84, 73);
             textBoxInputPort.Name = "textBoxInputPort";
             textBoxInputPort.Size = new Size(100, 23);
             textBoxInputPort.TabIndex = 6;
@@ -102,7 +102,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(300, 103);
+            ClientSize = new Size(330, 103);
             Controls.Add(textBoxInputPort);
             Controls.Add(labelPort);
             Controls.Add(labelIP);
