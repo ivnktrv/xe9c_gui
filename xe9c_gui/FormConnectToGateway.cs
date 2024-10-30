@@ -40,10 +40,6 @@ public partial class FormConnectToGateway : Form
 
     private void buttonConnect_Click(object sender, EventArgs e)
     {
-        Xe9c_client? client;
-        Socket? server;
-        FormMain? mainWindow;
-
         try
         {
             if (textBoxInputClientName.Text.Length > 32)
@@ -67,15 +63,21 @@ public partial class FormConnectToGateway : Form
             }
             else
             {
-                client = new(
+                Xe9c_client client = new(
                     textBoxInputClientName.Text,
                     textBoxInputIP.Text,
                     int.Parse(textBoxInputPort.Text)
                 );
-                mainWindow = new(client);
+                FormMain mainWindow = new(client);
                 mainWindow.Show();
                 this.Hide();
-                mainWindow.FormClosed += (s, args) => this.Show();
+                mainWindow.FormClosed += (s, args) =>
+                {
+                    mainWindow.Dispose();
+                    client.Dispose();
+                    this.Show();
+                };
+                
             }
         }
         catch (Exception ex)

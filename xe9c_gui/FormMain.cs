@@ -7,8 +7,7 @@ namespace xe9c_gui;
 
 public partial class FormMain : Form
 {
-    private Xe9c_client? _client;
-    private Socket? _server;
+    private readonly Xe9c_client? _client;
 
     public FormMain(Xe9c_client client)
     {
@@ -41,7 +40,7 @@ public partial class FormMain : Form
     private void buttonSend_Click(object sender, EventArgs e)
     {
         outTextBox.Text += $"\n<{_client.ClientName}> " + inputBox.Text;
-        _client.SendMsg(_server, $"<{_client.ClientName}> {inputBox.Text}");
+        _client.SendMsg($"<{_client.ClientName}> {inputBox.Text}");
         outTextBox.SelectionStart = outTextBox.Text.Length;
         outTextBox.ScrollToCaret();
         inputBox.SelectAll();
@@ -73,15 +72,15 @@ public partial class FormMain : Form
         notifyIconNewMsg.Text = $"xe9c ({_client.ClientName})";
         try
         {
-            _server = _client.ConnectToGateway();
+            _client.ConnectToGateway();
             byte[] sendName = Encoding.UTF8.GetBytes(_client.ClientName);
-            _server.Send(sendName);
+            _client.Gateway.Send(sendName);
             byte[] recvGatewayName = new byte[32];
-            _server.Receive(recvGatewayName);
+            _client.Gateway.Receive(recvGatewayName);
             string getGatewayName = Encoding.UTF8.GetString(recvGatewayName);
             richTextBoxGatewayInfo.Text = "Имя шлюза: " + getGatewayName;
             richTextBoxGatewayInfo.Text += $"\nIP: {_client.IP}\nПорт: {_client.Port}";
-            Task.Run(() => _client.ReceiveMsg(_server, outTextBox, notifyIconNewMsg));
+            Task.Run(() => _client.ReceiveMsg(outTextBox, notifyIconNewMsg));
         }
         catch (Exception ex)
         {
@@ -97,7 +96,7 @@ public partial class FormMain : Form
 
     private void buttonDisconnect_Click(object sender, EventArgs e)
     {
-        _server.Close();
+        _client.Gateway.Close();
         Close();
     }
 
@@ -114,6 +113,6 @@ public partial class FormMain : Form
 
     private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
     {
-        _server.Close();
+        _client.Gateway.Close();
     }
 }

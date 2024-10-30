@@ -124,7 +124,7 @@ partial class FormMain
         labelAbout.Name = "labelAbout";
         labelAbout.Size = new Size(139, 20);
         labelAbout.TabIndex = 6;
-        labelAbout.Text = "Xenine Chat (v3.0)";
+        labelAbout.Text = "Xenine Chat (v3.1)";
         // 
         // labelGithub
         // 

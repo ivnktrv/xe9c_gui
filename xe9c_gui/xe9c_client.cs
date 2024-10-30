@@ -9,13 +9,19 @@ using xe9c_gui;
 
 namespace xe9c_gui;
 
-public class Xe9c_client
+public class Xe9c_client : IDisposable
 {
+    private Socket? _gateway = null;
     private string _clientName = "None";
     private string _ip = "0.0.0.0";
     private int _port = 0;
     private bool _windowMinimized = false;
-
+    private bool _disposed = false;
+    
+    public Socket Gateway
+    {
+        get => _gateway;
+    }
     public string ClientName
     {
         get => _clientName;
@@ -51,23 +57,21 @@ public class Xe9c_client
         return $"### CONNECTION INFO ###\n\nName: {_clientName}\nIP: {_ip}\nPort: {_port}";
     }
 
-    public Socket ConnectToGateway()
+    public void ConnectToGateway()
     {
         IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(_ip), _port);
         IPAddress ipAddr = IPAddress.Parse(_ip);
-        Socket __socket = new Socket(
+        _gateway = new Socket(
             ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-        __socket.Connect(ipEndPoint);
-
-        return __socket;
+        _gateway.Connect(ipEndPoint);
     }
 
-    public void ReceiveMsg(Socket __socket, RichTextBox box, NotifyIcon notifyIcon)
+    public void ReceiveMsg(RichTextBox box, NotifyIcon notifyIcon)
     {
         while (true)
         {
             byte[] getMsg = new byte[2048];
-            __socket.Receive(getMsg);
+            _gateway.Receive(getMsg);
             box.Text += $"\n{Encoding.UTF8.GetString(getMsg)}";
             box.SelectionStart = box.Text.Length;
             box.ScrollToCaret();
@@ -79,9 +83,42 @@ public class Xe9c_client
         }
     }
 
-    public void SendMsg(Socket __socket, string message)
+    public void SendMsg(string message)
     {
         byte[] getMsg = Encoding.UTF8.GetBytes(message);
-        __socket.Send(getMsg);
+        _gateway.Send(getMsg);
     }
+
+    public void SetDefaultValue()
+    {
+        _gateway = null;
+        _clientName = "None";
+        _ip = "0.0.0.0";
+        _port = 0;
+    }
+
+    #region Dispose
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed) return;
+        if (disposing)
+        {
+            _gateway.Close();
+            _gateway.Dispose();
+            SetDefaultValue();
+        }
+        _disposed = true;
+    }
+
+    ~Xe9c_client()
+    {
+        Dispose(false);
+    }
+    #endregion
 }
